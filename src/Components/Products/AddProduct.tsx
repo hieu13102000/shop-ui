@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Modal, Form, Input, Select, Row, Col, Button } from 'antd';
+import { Modal, Form, Input, Select, Row, Col, Button, message } from 'antd';
+import ProjectsService from "../../Services/ProjectsService";
 
 interface Values {
   title: string;
@@ -13,7 +14,6 @@ interface CollectionCreateFormProps {
 
 
 export default function AddProduct() {
-  console.log('wrapperCol112')
   const [visible, setVisible] = useState(false);
   const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
     visible,
@@ -92,9 +92,11 @@ export default function AddProduct() {
             rules={[
               {
                 required: true,
+                type: 'url',
                 message: 'Vui lòng nhập Link ảnh!',
               },
             ]}
+            
             // icon check Validation
             hasFeedback
           >
@@ -106,6 +108,7 @@ export default function AddProduct() {
             rules={[
               {
                 required: true,
+                pattern: new RegExp("^[0-9]*$"),
                 message: 'Vui lòng nhập giá sản phẩm!',
               },
             ]}
@@ -158,7 +161,14 @@ export default function AddProduct() {
 
 
   const onCreate = (values: any) => {
-    console.log('Received values of form: ', values);
+    console.log('giá trị form', values);
+    ProjectsService.create(values)
+      .then((response: any) => {
+        message.success('Thêm sản phẩm thành công');
+      })
+      .catch(()=> {
+        message.error('Thêm sản phẩm thất bại')
+      });
     setVisible(true);
   };
 

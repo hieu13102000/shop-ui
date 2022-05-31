@@ -1,206 +1,188 @@
-import React from 'react';
-import { Table} from 'antd';
-import type { TableRowSelection } from 'antd/lib/table/interface';
+import React, { useState, useEffect,} from "react";
+import TypesProductData from "../../Types/Product"; 
+import ProjectsService from "../../Services/ProjectsService";
+import { Button, message, Modal, Table} from 'antd';
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from 'antd/lib/table';
 import AddProduct from '../Products/AddProduct';
 
 interface DataType {
   key?: React.Key;
-  id: any;
+  id?: any;
   name?: any;
   price?: any;
   image?: any;
   madeIn?: any;
   brand?: any;
 }
-
-const columns: ColumnsType<DataType> = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Image',
-    dataIndex: 'image',
-    render: (k, record) => (
-      <>
-        <img style={{ width: '40px', height: '40px' }} src={record.image} />
-      </>
-    )
-  },
-  {
-    title: 'Price',
-    dataIndex: 'price',
-  },
-  {
-    title: 'Brand',
-    dataIndex: 'brand',
-  },
-  {
-    title: 'MadeIn',
-    dataIndex: 'madeIn',
-  },
-
-];
-
-const data: DataType[] = [
-  {
-    id: '0',
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "1",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "2",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: '3',
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "4",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "5",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: '6',
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "7",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "8",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: '9',
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "10",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "11",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: '12',
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "13",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "14",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: '15',
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "16",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  },
-  {
-    id: "17",
-    name: "Son Dưỡng Dior Addict Lip Glow To The Max 201 Pink",
-    image: "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2019/05/son-duong-dior-addict-lip-glow-to-the-max-201-pink-2019-5cee2d7346a2e-29052019135755.jpg",
-    price: 719.000,
-    madeIn: "Pháp",
-    brand: "Dior",
-  }
-];
-
-
-
 export default function Products() {
-  const rowSelection: TableRowSelection<DataType> = {
-  }
+  const [dataProduct, setDataProduct] = useState<Array<TypesProductData>>([]);
+  const data:DataType[] = dataProduct
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [loading, setLoading] = useState(false);
+  // useState action
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingStudent, setEditingStudent] = useState(null);
+
+
+  const columns: ColumnsType<DataType> = [
+    {
+      key: '1',
+      title: 'Tên sản phẩm',
+      dataIndex: 'name',
+      render: (text, record) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
+      width: '400px',
+    },
+    {
+      key: '2',
+      title: 'Hình ảnh',
+      dataIndex: 'image',
+      render: (k, record) => (
+        <>
+          <img style={{ width: '100px', height: '100px' }} src={record.image} />
+        </>
+      )
+    },
+    {
+      key: '3',
+      title: 'Giá',
+      dataIndex: 'price',
+    },
+    {
+      key: '4',
+      title: 'Thương hiệu',
+      dataIndex: 'brand',
+    },
+    {
+      key: '5',
+      title: 'Xuất sứ',
+      dataIndex: 'madeIn',
+    },
+    {
+      key: '6',
+      title: 'Thao tác',
+      dataIndex: '',
+      render: (text, record, index) => {
+        return (
+          <>
+            <EditOutlined
+              onClick={() => {
+                onEditProduct(record);
+              }}
+            />
+            <DeleteOutlined
+              onClick={() => {
+                onDeleteStudent(record);
+              }}
+              style={{ color: "red", marginLeft: 12 }}
+            />
+          </>
+        );
+      },
+    },
+  ];
   
+  const deleteSelected = () => {
+    setLoading(true);
+    // ajax request after empty completing
+    setTimeout(() => {
+      removeAll(selectedRowKeys)
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
+  };
+
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+  useEffect(() => {
+    retrieveTutorials();
+  }, []);
+ 
+  const retrieveTutorials = () => {
+    ProjectsService.getAll()
+      .then((response: any) => {
+        setDataProduct(response.data);
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
+  const removeAll = (id:any) => {
+    ProjectsService.remove(id)
+    .then((response: any) => {
+      console.log('thành công');
+    })
+    .catch((e: Error) => {
+      console.log(e);
+    });
+  };
+// action table
+const onDeleteStudent = (record: any) => {
+  Modal.confirm({
+    title: "Bạn có chắc muốn xoá sản phẩm?",
+    okText: "Vâng, tôi chắc",
+    okType: "danger",
+    cancelText:'Không',
+    onOk: () => {
+      ProjectsService.remove(record.id)
+      .then((response: any) => {
+        message.success('Xoá sản phẩm thành công');
+      })
+      .catch(()=> {
+        message.error('X sản phẩm thất bại')
+      });
+    },
+  });
+};
+const onEditProduct = (record: any) => {
+  setIsEditing(true);
+  setEditingStudent({ ...record });
+};
+const resetEditing = () => {
+  setIsEditing(false);
+  setEditingStudent(null);
+};
+
+
+
+
+
+
+
 
 
   return (
     <>
     <AddProduct/>
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
+    <div
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        <Button type="primary"  danger onClick={deleteSelected} disabled={!hasSelected} loading={loading}>
+          Xoá tất cả
+        </Button>
+        <span
+          style={{
+            marginLeft: 8,
+          }}
+        >
+          {hasSelected ? `Đã chọn ${selectedRowKeys.length} sản phẩm` : ''}
+        </span>
+      </div>
+      <Table rowSelection={rowSelection} columns={columns}  dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
     </>)
 }
