@@ -70,8 +70,7 @@ export default function Products() {
           <>
             <EditOutlined
               onClick={() => {
-                onEditProduct(record);
-                handleOpenModalEdit(true)
+                handleOpenModalEdit(true,record)
               }}
             />
             <DeleteOutlined
@@ -147,18 +146,17 @@ const onDeleteStudent = (record: any) => {
     },
   });
 };
-const[valueEdit,setValueEdit]= useState({})
+
+
 const onEditProduct = (record: any) => {
 console.log('record', record);
-setValueEdit(record)
+
 };
-
-
 
 const childRef:any = useRef(null);
 
-  const handleOpenModalEdit = (value:any) => {
-      childRef.current.openModal(value);
+  const handleOpenModalEdit = (value:any,record: any) => {
+      childRef.current.openModal(value,record);
   }
 
 
@@ -182,7 +180,7 @@ const childRef:any = useRef(null);
         </span>
       </div>
       <Table rowSelection={rowSelection} columns={columns}  dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
-      <EditProduct ref={childRef} value={valueEdit}/>
+      <EditProduct ref={childRef}/>
     </>
     )
 }

@@ -8,23 +8,20 @@ interface Values {
 
 interface CollectionCreateFormProps {
   visible: boolean;
-  onCreate: (values: Values) => void;
+  onCreate: (id:any,values: Values) => void;
   onCancel: () => void;
 }
-
 
 export default forwardRef( function EditProduct(props:any, ref:any) {
   console.log('awg',ref);
   const [openModal, setOpenModal] = useState(false);
-
+  const [openMo, setOpenMo] = useState({id: '',name: '', price: 0, brand: '', image: '', madeIn: ''});
  useImperativeHandle(ref, () => ({
-  openModal: (value:any) => setOpenModal(value),
+  openModal: (value:any,record:any) => {setOpenModal(value)
+    setOpenMo(record)}
  }));
 
   if(!openModal) return null;
-
-
-
   const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
     onCreate,
     onCancel,
@@ -67,7 +64,8 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
                 setOpenModal(false)
                 form.resetFields();
               }, 2000);
-              onCreate(values);
+         
+              onCreate(openMo.id,values);
             })
             .catch(info => {
               console.log('that bai ----------------------------------------------------------------', info);
@@ -85,7 +83,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="name"
             label="Tên sản phẩm"
-            // initialValue={{props.mame}}
+            initialValue={openMo.name}
             rules={[
               {
                 required: true,
@@ -100,6 +98,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="image"
             label="Link ảnh sản phẩm"
+            initialValue={openMo.image}
             rules={[
               {
                 required: true,
@@ -116,6 +115,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="price"
             label="Giá sản phẩm"
+            initialValue={openMo.price}
             rules={[
               {
                 required: true,
@@ -132,6 +132,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="brand"
             label="Thương hiệu"
+            initialValue={openMo.brand}
             rules={[
               {
                 required: true,
@@ -150,6 +151,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="madeIn"
             label="Xuất xứ"
+            initialValue={openMo.madeIn}
             rules={[
               {
                 required: true,
@@ -171,14 +173,13 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
   };
 
 
-  const onCreate = (values: any) => {
-    console.log('giá trị form', values);
-    ProjectsService.create(values)
+  const onCreate = (id: any,values: any) => {
+    ProjectsService.update(id,values)
       .then((response: any) => {
-        message.success('Thêm sản phẩm thành công');
+        message.success('Sửa sản phẩm thành công');
       })
       .catch(()=> {
-        message.error('Thêm sản phẩm thất bại')
+        message.error('Sửa sản phẩm thất bại')
       });
       setOpenModal(true);
   };
