@@ -1,10 +1,11 @@
-import React, { useState, useEffect,} from "react";
+import React, { useState, useEffect,useRef} from "react";
 import TypesProductData from "../../Types/Product"; 
 import ProjectsService from "../../Services/ProjectsService";
 import { Button, message, Modal, Table} from 'antd';
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from 'antd/lib/table';
 import AddProduct from '../Products/AddProduct';
+import EditProduct from "./EditProduct";
 
 interface DataType {
   key?: React.Key;
@@ -20,10 +21,8 @@ export default function Products() {
   const data:DataType[] = dataProduct
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState(false);
-  // useState action
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingStudent, setEditingStudent] = useState(null);
 
+  
 
   const columns: ColumnsType<DataType> = [
     {
@@ -72,6 +71,7 @@ export default function Products() {
             <EditOutlined
               onClick={() => {
                 onEditProduct(record);
+                handleOpenModalEdit(true)
               }}
             />
             <DeleteOutlined
@@ -147,21 +147,19 @@ const onDeleteStudent = (record: any) => {
     },
   });
 };
+const[valueEdit,setValueEdit]= useState({})
 const onEditProduct = (record: any) => {
-  setIsEditing(true);
-  setEditingStudent({ ...record });
-};
-const resetEditing = () => {
-  setIsEditing(false);
-  setEditingStudent(null);
+console.log('record', record);
+setValueEdit(record)
 };
 
 
 
+const childRef:any = useRef(null);
 
-
-
-
+  const handleOpenModalEdit = (value:any) => {
+      childRef.current.openModal(value);
+  }
 
 
   return (
@@ -184,5 +182,7 @@ const resetEditing = () => {
         </span>
       </div>
       <Table rowSelection={rowSelection} columns={columns}  dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
-    </>)
+      <EditProduct ref={childRef} value={valueEdit}/>
+    </>
+    )
 }
