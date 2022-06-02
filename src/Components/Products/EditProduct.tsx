@@ -15,10 +15,10 @@ interface CollectionCreateFormProps {
 export default forwardRef( function EditProduct(props:any, ref:any) {
   console.log('awg',ref);
   const [openModal, setOpenModal] = useState(false);
-  const [openMo, setOpenMo] = useState({id: '',name: '', price: 0, brand: '', image: '', madeIn: ''});
+  const [valueFormEdit, setValueFormEdit] = useState({id: '',name: '', price: 0, brand: '', image: '', madeIn: ''});
  useImperativeHandle(ref, () => ({
   openModal: (value:any,record:any) => {setOpenModal(value)
-    setOpenMo(record)}
+    setValueFormEdit(record)}
  }));
 
   if(!openModal) return null;
@@ -65,7 +65,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
                 form.resetFields();
               }, 2000);
          
-              onCreate(openMo.id,values);
+              onCreate(valueFormEdit.id,values);
             })
             .catch(info => {
               console.log('that bai ----------------------------------------------------------------', info);
@@ -83,7 +83,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="name"
             label="Tên sản phẩm"
-            initialValue={openMo.name}
+            initialValue={valueFormEdit.name}
             rules={[
               {
                 required: true,
@@ -98,7 +98,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="image"
             label="Link ảnh sản phẩm"
-            initialValue={openMo.image}
+            initialValue={valueFormEdit.image}
             rules={[
               {
                 required: true,
@@ -115,7 +115,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="price"
             label="Giá sản phẩm"
-            initialValue={openMo.price}
+            initialValue={valueFormEdit.price}
             rules={[
               {
                 required: true,
@@ -132,7 +132,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="brand"
             label="Thương hiệu"
-            initialValue={openMo.brand}
+            initialValue={valueFormEdit.brand}
             rules={[
               {
                 required: true,
@@ -151,7 +151,7 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           <Form.Item
             name="madeIn"
             label="Xuất xứ"
-            initialValue={openMo.madeIn}
+            initialValue={valueFormEdit.madeIn}
             rules={[
               {
                 required: true,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,} from 'react';
 import 'antd/dist/antd.css'
 import './App.css'
 import { Layout, Menu } from 'antd';
@@ -9,6 +9,7 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
+import logo from './assets/images/logo.svg';
 import Products from './Components/Products';
 
 const { Header, Sider, Content } = Layout;
@@ -26,7 +27,10 @@ const App: React.FC = () => {
           }
         }
       } trigger={null} collapsible collapsed={collapsed} >
-        <div className="logo"></div>
+        <div className="logo">
+        <img src={logo} alt="Logo" style={{width:'36px',marginRight: '8px'}} />
+        {!collapsed && <h1>AntD Admin</h1>}
+        </div>
         <Menu
           mode="inline"
           defaultSelectedKeys={['1']}

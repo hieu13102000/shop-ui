@@ -21,7 +21,7 @@ export default function Products() {
   const data:DataType[] = dataProduct
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const [loadingTable, setLoadingTable] = useState(true);
   
 
   const columns: ColumnsType<DataType> = [
@@ -113,10 +113,11 @@ export default function Products() {
     ProjectsService.getAll()
       .then((response: any) => {
         setDataProduct(response.data);
-        console.log(response.data);
+        setLoadingTable(false)
       })
       .catch((e: Error) => {
         console.log(e);
+        setLoadingTable(false)
       });
   };
   const removeAll = (id:any) => {
@@ -148,11 +149,6 @@ const onDeleteStudent = (record: any) => {
 };
 
 
-const onEditProduct = (record: any) => {
-console.log('record', record);
-
-};
-
 const childRef:any = useRef(null);
 
   const handleOpenModalEdit = (value:any,record: any) => {
@@ -179,7 +175,7 @@ const childRef:any = useRef(null);
           {hasSelected ? `Đã chọn ${selectedRowKeys.length} sản phẩm` : ''}
         </span>
       </div>
-      <Table rowSelection={rowSelection} columns={columns}  dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
+      <Table loading = {loadingTable} rowSelection={rowSelection} columns={columns}  dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
       <EditProduct ref={childRef}/>
     </>
     )
