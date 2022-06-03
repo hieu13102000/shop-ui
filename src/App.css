@@ -8,6 +8,9 @@ background-color: white;
  .ant-menu-inline {
   background-color: transparent;
 }
+.customWidth{
+  margin-left: 80px !important;
+}
 
 
 
@@ -46,9 +49,11 @@ background-color: white;
   -webkit-text-fill-color: transparent;
 }
 
+
 .site-layout .site-layout-background {
   background: #fff;
 }
+
 @media (max-width: 767px) {
 
     .ant-pagination-item,
