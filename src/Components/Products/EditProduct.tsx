@@ -13,7 +13,6 @@ interface CollectionCreateFormProps {
 }
 
 export default forwardRef( function EditProduct(props:any, ref:any) {
-  console.log('awg',ref);
   const [openModal, setOpenModal] = useState(false);
   const [valueFormEdit, setValueFormEdit] = useState({id: '',name: '', price: 0, brand: '', image: '', madeIn: ''});
  useImperativeHandle(ref, () => ({
@@ -64,7 +63,9 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
                 setOpenModal(false)
                 form.resetFields();
               }, 2000);
-         
+              const handleRefreshTable = ()=> {props.handleCallback()}
+              setTimeout(handleRefreshTable
+              , 2000)
               onCreate(valueFormEdit.id,values);
             })
             .catch(info => {

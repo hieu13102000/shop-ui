@@ -1,5 +1,6 @@
 import React, { useState, } from 'react';
-import 'antd/dist/antd.css'
+import { Routes, Route, Link } from 'react-router-dom';
+import "antd/dist/antd.min.css"
 import classNames from 'classnames/bind';
 import './App.css'
 import style from './Components/HeaderItem/headerItem.module.scss'
@@ -11,7 +12,8 @@ import {
   TeamOutlined
 } from '@ant-design/icons';
 import logo from './assets/images/logo.svg';
-import Products from './Components/Products';
+import Products from './Components/Products/ListProduct';
+import ListMembership from './Components/Membership/ListMembership';
 import HeaderItem from './Components/HeaderItem';
 
 const { Header, Sider, Content } = Layout;
@@ -19,7 +21,6 @@ const { Header, Sider, Content } = Layout;
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const cx = classNames.bind(style)
-
   return (
     <>
       <Layout hasSider>
@@ -53,12 +54,13 @@ const App: React.FC = () => {
               {
                 key: '1',
                 icon: <ShoppingOutlined />,
-                label: 'Sản Phẩm',
+                label: <Link to="/listProducts">Sản Phẩm</Link>,
               },
               {
                 key: '2',
                 icon: <TeamOutlined />,
-                label: 'Nhân viên',
+                label:  <Link to="/listMembership">Nhân viên</Link>,
+              
               },
             ]}
           />
@@ -86,7 +88,7 @@ const App: React.FC = () => {
                 onClick: () => setCollapsed(!collapsed),
               })}
                 <div className={!collapsed ? cx('header-item-right') : cx('header-item-rightClose')}>
-                  <HeaderItem collapsed={collapsed} />
+                  <HeaderItem/>
                 </div>
               </Col>
             </Row>
@@ -101,7 +103,11 @@ const App: React.FC = () => {
               minHeight: 280,
             }}
           >
-            <Products />
+            <Routes>
+            <Route path='/' element={<Products/>}/>
+            <Route path='/listProducts' element={<Products/>}/>
+            <Route path='/listMembership' element={<ListMembership/>}/>
+            </Routes>
           </Content>
           <div
             style={{

@@ -13,7 +13,7 @@ interface CollectionCreateFormProps {
 }
 
 
-export default function AddProduct() {
+export default function AddProduct(ketnoi:any) {
   const [visible, setVisible] = useState(false);
   const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
     visible,
@@ -165,11 +165,14 @@ export default function AddProduct() {
     ProjectsService.create(values)
       .then((response: any) => {
         message.success('Thêm sản phẩm thành công');
+        const handleRefreshTable = ()=> {ketnoi.handleCallback()}
+        setTimeout(handleRefreshTable
+        , 2000)
+        
       })
       .catch(()=> {
         message.error('Thêm sản phẩm thất bại')
       });
-    setVisible(true);
   };
 
   return (

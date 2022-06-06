@@ -15,7 +15,7 @@ const update = (id: any, data: TypesProductData) => {
 const remove = (id: any) => {
   return http.delete<any>(`/product/${id}`);
 };
-const removeAll = (id: []) => {
+const removeAll = (id:any) => {
   return http.delete<any>(`/product/${id}`);
 };
 const findByTitle = (title: string) => {

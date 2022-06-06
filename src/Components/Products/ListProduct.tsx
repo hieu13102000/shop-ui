@@ -4,7 +4,7 @@ import ProjectsService from "../../Services/ProjectsService";
 import { Button, message, Modal, Table} from 'antd';
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from 'antd/lib/table';
-import AddProduct from '../Products/AddProduct';
+import AddProduct from './AddProduct';
 import EditProduct from "./EditProduct";
 
 interface DataType {
@@ -22,8 +22,8 @@ export default function Products() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingTable, setLoadingTable] = useState(true);
-  
-
+  const initRefreshTable=0
+  const [refreshTable,setRefreshTable] = useState(initRefreshTable)
   const columns: ColumnsType<DataType> = [
     {
       key: '1',
@@ -75,7 +75,7 @@ export default function Products() {
             />
             <DeleteOutlined
               onClick={() => {
-                onDeleteStudent(record);
+                onDeleteProducts(record);
               }}
               style={{ color: "red", marginLeft: 12 }}
             />
@@ -107,7 +107,7 @@ export default function Products() {
   const hasSelected = selectedRowKeys.length > 0;
   useEffect(() => {
     retrieveTutorials();
-  }, []);
+  }, [refreshTable]);
  
   const retrieveTutorials = () => {
     ProjectsService.getAll()
@@ -126,11 +126,11 @@ export default function Products() {
       console.log('thành công');
     })
     .catch((e: Error) => {
-      console.log(e);
+      message.error('chưa thể xoá tất cả mã id ' + id +' phía server đang gặp chưa có hàm sử lý ')
     });
   };
 // action table
-const onDeleteStudent = (record: any) => {
+const onDeleteProducts = (record: any) => {
   Modal.confirm({
     title: "Bạn có chắc muốn xoá sản phẩm?",
     okText: "Vâng, tôi chắc",
@@ -140,6 +140,7 @@ const onDeleteStudent = (record: any) => {
       ProjectsService.remove(record.id)
       .then((response: any) => {
         message.success('Xoá sản phẩm thành công');
+        setRefreshTable(refreshTable+1)
       })
       .catch(()=> {
         message.error('X sản phẩm thất bại')
@@ -155,10 +156,13 @@ const childRef:any = useRef(null);
       childRef.current.openModal(value,record);
   }
 
+const handleRefreshTable = ()=>{
+  setRefreshTable(refreshTable+1)
+}
 
   return (
     <>
-    <AddProduct/>
+    <AddProduct handleCallback={()=>handleRefreshTable()}/>
     <div
         style={{
           marginBottom: 16,
@@ -176,7 +180,7 @@ const childRef:any = useRef(null);
         </span>
       </div>
       <Table loading = {loadingTable} rowSelection={rowSelection} columns={columns}  dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
-      <EditProduct ref={childRef}/>
+      <EditProduct ref={childRef} handleCallback={()=>handleRefreshTable()}/>
     </>
     )
 }

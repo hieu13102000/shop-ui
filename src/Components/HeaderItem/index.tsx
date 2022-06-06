@@ -51,9 +51,7 @@ const profile = (
     ]}
   />
 );
-export default function HeaderItem(collapsed:any) {
-  console.log('test klkklkkl',collapsed);
-  
+export default function HeaderItem() {
   return (
   <>
    <Dropdown overlay={menu} placement="bottom">
