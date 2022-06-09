@@ -2,17 +2,25 @@ import React from 'react';
 import style from './login.module.scss'
 import classNames from 'classnames/bind';
 import Image from '../../assets/images/';
-import 'antd/dist/antd.css'
+import "antd/dist/antd.min.css"
 import { Form, Input, Button, } from 'antd';
+
+import AuthService from '../../Services/AuthService';
+import { Navigate } from 'react-router-dom';
+import { isLogIn } from '../../Services/useLocalStorage';
 
 const cx = classNames.bind(style)
 
 export default function Login() {
+  const user  = isLogIn();
+  if (user ===true) {
+    return <Navigate to="/dashboard/listProducts" replace />;
+  }
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+    AuthService.login(values.username,values.password)
   };
   return (
-    <body className={cx('body')}>
+    <div className={cx('body')}>
       {/* <div className="loader">
         <div className="warpper">
           <div className="inner"></div>
@@ -60,12 +68,13 @@ export default function Login() {
                     >
                       <Input
                         type="password"
+                        autoComplete='on'
                         placeholder="Password"
                       />
                     </Form.Item>
                   </div>
                 </div>
-              </div>
+              </div >
 
             </div>
             <div className={cx('ant-button')}>
@@ -82,6 +91,6 @@ export default function Login() {
         </div>
       </div>
 
-    </body>
+    </div>
   )
 }

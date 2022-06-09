@@ -1,8 +1,8 @@
 import React, { useState, useEffect,useRef} from "react";
 import TypesProductData from "../../Types/Product"; 
 import ProjectsService from "../../Services/ProjectsService";
-import { Button, message, Modal, Table} from 'antd';
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Breadcrumb, Button, message, Modal, Table} from 'antd';
+import { EditOutlined, DeleteOutlined,DashboardOutlined,ShoppingOutlined } from "@ant-design/icons";
 import type { ColumnsType } from 'antd/lib/table';
 import AddProduct from './AddProduct';
 import EditProduct from "./EditProduct";
@@ -161,14 +161,19 @@ const handleRefreshTable = ()=>{
 }
 
   return (
-    <>
+    <div>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item><DashboardOutlined /> Bảng điều khiển</Breadcrumb.Item>
+        <Breadcrumb.Item><ShoppingOutlined /> Sản Phẩm</Breadcrumb.Item>
+      </Breadcrumb>
+  <div style={{backgroundColor: 'white'}}>
     <AddProduct handleCallback={()=>handleRefreshTable()}/>
     <div
         style={{
-          marginBottom: 16,
+          marginBottom: '16px',
         }}
       >
-        <Button type="primary"  danger onClick={deleteSelected} disabled={!hasSelected} loading={loading}>
+        <Button type="primary" danger onClick={deleteSelected} disabled={!hasSelected} loading={loading}>
           Xoá tất cả
         </Button>
         <span
@@ -181,6 +186,8 @@ const handleRefreshTable = ()=>{
       </div>
       <Table loading = {loadingTable} rowSelection={rowSelection} columns={columns}  dataSource={data.map((item: any) => ({ ...item, key: `${item.id}` }))} />
       <EditProduct ref={childRef} handleCallback={()=>handleRefreshTable()}/>
-    </>
+    </div>
+    </div>
+  
     )
 }

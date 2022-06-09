@@ -179,7 +179,7 @@ export default function AddProduct(ketnoi:any) {
     <>
       <Row>
         <Col style={{ display: 'flex', justifyContent: 'flex-end' }} span={24}>
-          <Button style={{ marginBottom: '22px' }} type="primary" onClick={() => {
+          <Button style={{marginBottom:'-25px',marginRight:"36px",marginTop:"22px"}} type="primary" onClick={() => {
             setVisible(true);
           }}>Thêm sản phẩm</Button>
         </Col>

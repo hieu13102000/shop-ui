@@ -1,29 +1,28 @@
-import axios from "axios";
+import { message } from "antd";
+import http from "../http-common";
+import TypesAuthData from "../Types/Auth";
+import { useLocalStorage} from "./useLocalStorage";
 
-const API_URL = "http://localhost:8080/api/auth/";
-
-export const login = (username: string, password: string) => {
-  return axios
-    .post(API_URL + "signin", {
-      username,
-      password,
-    })
-    .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-
-      return response.data;
-    });
+const login = (username: string,password: string) => {
+  http.get<Array<TypesAuthData>>("/user")
+      .then((response: any) => {
+        const data = response.data;
+        // eslint-disable-next-line array-callback-return
+        data.find((user:any) => {
+          if (user.username === username && user.password === password){
+          useLocalStorage("UserAdmin",user)
+          window.location.reload();
+        }
+        // else
+        // message.error('sai tên đăng nhập hoặc mật khẩu');
+      })
+        
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
 };
-
-export const logout = () => {
-  localStorage.removeItem("user");
+const  AuthService = {
+  login
 };
-
-export const getCurrentUser = () => {
-  const userStr = localStorage.getItem("user");
-  if (userStr) return JSON.parse(userStr);
-
-  return null;
-};
+export default  AuthService;
