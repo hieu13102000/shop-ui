@@ -80,7 +80,7 @@ export default function AddProduct(ketnoi:any) {
             rules={[
               {
                 required: true,
-                message: 'Vui lòng nhập tên sản phẩm!',
+                message: `${t('content.messErrorName')}`,
               },
             ]}
             // icon check Validation
@@ -95,7 +95,7 @@ export default function AddProduct(ketnoi:any) {
               {
                 required: true,
                 type: 'url',
-                message: 'Vui lòng nhập Link ảnh!',
+                message:  `${t('content.messErrorLinkIMG')}`,
               },
             ]}
             
@@ -111,7 +111,7 @@ export default function AddProduct(ketnoi:any) {
               {
                 required: true,
                 pattern: new RegExp("^[0-9]*$"),
-                message: 'Vui lòng nhập giá sản phẩm!',
+                message: `${t('content.messErrorPrice')}`,
               },
             ]}
             hasFeedback
@@ -126,13 +126,13 @@ export default function AddProduct(ketnoi:any) {
             rules={[
               {
                 required: true,
-                message: 'Vui lòng nhập tên thương hiệu!',
+                message: `${t('content.messErrorBrand')}`,
               },
             ]}
             // icon check Validation
             hasFeedback
           >
-            <Select placeholder="select your brand">
+            <Select placeholder={t('content.placeholderBrand')}>
               <Option value="Dior">Dior</Option>
               <Option value="Chanel">Chanel</Option>
               <Option value="Gucci">Gucci</Option>
@@ -144,13 +144,13 @@ export default function AddProduct(ketnoi:any) {
             rules={[
               {
                 required: true,
-                message: 'Vui lòng chọn nơi xuất sứ!',
+                message:`${t('content.messErrorMadeIn')}`,
               },
             ]}
             // icon check Validation
             hasFeedback
           >
-            <Select placeholder="select your made in">
+            <Select placeholder={t('content.placeholderBrand')}>
               <Option value="Pháp">Pháp</Option>
               <Option value="Anh">Anh</Option>
               <Option value="Mỹ">Mỹ</Option>
@@ -166,14 +166,14 @@ export default function AddProduct(ketnoi:any) {
     console.log('giá trị form', values);
     ProjectsService.create(values)
       .then((response: any) => {
-        message.success('Thêm sản phẩm thành công');
+        message.success(`${t('content.messageSuccessAdd')}`);
         const handleRefreshTable = ()=> {ketnoi.handleCallback()}
         setTimeout(handleRefreshTable
         , 2000)
         
       })
       .catch(()=> {
-        message.error('Thêm sản phẩm thất bại')
+        message.error(`${t('content.messageErrorAdd')}`)
       });
   };
 

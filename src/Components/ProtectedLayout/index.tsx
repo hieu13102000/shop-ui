@@ -69,7 +69,7 @@ const ProtectedLayout: React.FC = () => {
               {
                 key: '2',
                 icon: <TeamOutlined />,
-                label:  <Link to="/dashboard/listMembership">Nhân viên</Link>,
+                label:  <Link to="/dashboard/listMembership">{t('content.Staff')}</Link>,
               
               },
             ]}

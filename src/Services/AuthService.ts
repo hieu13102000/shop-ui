@@ -13,8 +13,8 @@ const login = (username: string,password: string) => {
           useLocalStorage("UserAdmin",user)
           window.location.reload();
         }
-        // else
-        // message.error('sai tên đăng nhập hoặc mật khẩu');
+        else
+        message.error('sai tên đăng nhập hoặc mật khẩu');
       })
         
       })

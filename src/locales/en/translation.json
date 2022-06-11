@@ -22,9 +22,29 @@
         "save":"Save",
         "cancel":"Cancel",
         "remove":"Remove",
-        "infDelete":"Are you sure delete these items?",
+        "infDelete":"Are you sure delete these items ?",
         "yes":"Yes, I'm sure",
-        "no":"No"
+        "no":"No",
+        "placeholderBrand":"Choose a brand",
+        "placeholderMadeIn":"Select origin",
+        "messageSuccessAdd":"Add successful products",
+        "messageErrorAdd":"Add failed products",
+        "messageSuccessEdit":"Edit successful products",
+        "messageErrorEdit":"Edit failed products",
+        "messageSuccessDelete":"Delete successful products",
+        "messageErrorDelete":"Delete failed products",
+        "messErrorName" :"Please enter the product name!",
+        "messErrorLinkIMG" :"please enter photo link!",
+        "messErrorPrice" :"Please enter product price!",
+        "messErrorBrand" :"Please choose to enter the brand name!",
+        "messErrorMadeIn" :"Please choose the place of origin!",
+        "messErrorLogin" :"Username or password is incorrect",
+        "Staff":"Staff",
+        "messWarning":"Feature coming soon",
+        "goback":"Go back",
+        "search":"Search",
+        "searchName":"Search name product",
+        "reset":"Reset"
 
     }
 }

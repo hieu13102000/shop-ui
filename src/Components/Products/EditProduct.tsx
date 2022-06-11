@@ -1,6 +1,7 @@
 import React, {forwardRef, useImperativeHandle, useState } from 'react'
 import { Modal, Form, Input, Select, message } from 'antd';
 import ProjectsService from "../../Services/ProjectsService";
+import { useTranslation } from 'react-i18next';
 
 interface Values {
   title: string;
@@ -13,6 +14,7 @@ interface CollectionCreateFormProps {
 }
 
 export default forwardRef( function EditProduct(props:any, ref:any) {
+  const { t } = useTranslation()
   const [openModal, setOpenModal] = useState(false);
   const [valueFormEdit, setValueFormEdit] = useState({id: '',name: '', price: 0, brand: '', image: '', madeIn: ''});
  useImperativeHandle(ref, () => ({
@@ -49,9 +51,9 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
     return (
       <Modal
         visible={openModal}
-        title="Sửa sản phẩm"
-        okText='Lưu'
-        cancelText='Huỷ'
+        title={t('content.editProduct')}
+        okText={t('content.save')}
+        cancelText={t('content.cancel')}
         onCancel={onCancel}
         onOk={() => {
           form
@@ -75,20 +77,19 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
 
         confirmLoading={confirmLoading}
       >
-        <Form
+         <Form
           {...formItemLayout}
           form={form}
-       
           name="form_in_modal"
         >
           <Form.Item
             name="name"
-            label="Tên sản phẩm"
+            label={t('content.nameProduct')}
             initialValue={valueFormEdit.name}
             rules={[
               {
                 required: true,
-                message: 'Vui lòng nhập tên sản phẩm!',
+                message: `${t('content.messErrorName')}`,
               },
             ]}
             // icon check Validation
@@ -98,13 +99,13 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           </Form.Item>
           <Form.Item
             name="image"
-            label="Link ảnh sản phẩm"
+            label={t('content.productPhotoLink')}
             initialValue={valueFormEdit.image}
             rules={[
               {
                 required: true,
                 type: 'url',
-                message: 'Vui lòng nhập Link ảnh!',
+                message:  `${t('content.messErrorLinkIMG')}`,
               },
             ]}
             
@@ -115,13 +116,13 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
           </Form.Item>
           <Form.Item
             name="price"
-            label="Giá sản phẩm"
+            label={t('content.price')}
             initialValue={valueFormEdit.price}
             rules={[
               {
                 required: true,
                 pattern: new RegExp("^[0-9]*$"),
-                message: 'Vui lòng nhập giá sản phẩm!',
+                message: `${t('content.messErrorPrice')}`,
               },
             ]}
             hasFeedback
@@ -132,40 +133,40 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
 
           <Form.Item
             name="brand"
-            label="Thương hiệu"
+            label={t('content.brand')}
             initialValue={valueFormEdit.brand}
             rules={[
               {
                 required: true,
-                message: 'Vui lòng nhập tên thương hiệu!',
+                message: `${t('content.messErrorBrand')}`,
               },
             ]}
             // icon check Validation
             hasFeedback
           >
-            <Select placeholder="select your gender">
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-              <Option value="other">Other</Option>
+            <Select placeholder={t('content.placeholderBrand')}>
+              <Option value="Dior">Dior</Option>
+              <Option value="Chanel">Chanel</Option>
+              <Option value="Gucci">Gucci</Option>
             </Select>
           </Form.Item>
           <Form.Item
             name="madeIn"
-            label="Xuất xứ"
+            label={t('content.madeIn')}
             initialValue={valueFormEdit.madeIn}
             rules={[
               {
                 required: true,
-                message: 'Vui lòng chọn nơi xuất sứ!',
+                message:`${t('content.messErrorMadeIn')}`,
               },
             ]}
             // icon check Validation
             hasFeedback
           >
-            <Select placeholder="select your gender">
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-              <Option value="other">Other</Option>
+            <Select placeholder={t('content.placeholderBrand')}>
+              <Option value="Pháp">Pháp</Option>
+              <Option value="Anh">Anh</Option>
+              <Option value="Mỹ">Mỹ</Option>
             </Select>
           </Form.Item>
         </Form>
@@ -177,10 +178,10 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
   const onCreate = (id: any,values: any) => {
     ProjectsService.update(id,values)
       .then((response: any) => {
-        message.success('Sửa sản phẩm thành công');
+        message.success(`${t('content.messageSuccessEdit')}`);
       })
       .catch(()=> {
-        message.error('Sửa sản phẩm thất bại')
+        message.error(`${t('content.messageErrorEdit')}`)
       });
       setOpenModal(true);
   };

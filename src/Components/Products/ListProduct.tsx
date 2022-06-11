@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect,useRef} from "react";
 import TypesProductData from "../../Types/Product"; 
 import ProjectsService from "../../Services/ProjectsService";
-import { Breadcrumb, Button, Col, Input, InputRef, message, Modal, Row, Space, Table} from 'antd';
+import { Breadcrumb, Button,Input, InputRef, message, Modal,Space, Table} from 'antd';
 import { EditOutlined, DeleteOutlined,DashboardOutlined,ShoppingOutlined } from "@ant-design/icons";
 import type { ColumnsType, ColumnType } from 'antd/lib/table';
 import AddProduct from './AddProduct';
@@ -53,7 +54,7 @@ export default function Products() {
       <div style={{ padding: 8 }}>
         <Input
           ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
+          placeholder={t('content.searchName')}
           value={selectedKeys[0]}
           onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
           onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
@@ -67,14 +68,16 @@ export default function Products() {
             size="small"
             style={{ width: 90 }}
           >
-            Search
+          {t('content.search')}
           </Button>
           <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
+            onClick={() =>{clearFilters && handleReset(clearFilters)
+              handleSearch(selectedKeys as string[], confirm, dataIndex)}
+            }
             size="small"
             style={{ width: 90 }}
           >
-            Reset
+           {t('content.reset')}
           </Button>
         </Space>
       </div>
@@ -218,18 +221,18 @@ export default function Products() {
 // action table
 const onDeleteProducts = (record: any) => {
   Modal.confirm({
-    title: "Bạn có chắc muốn xoá sản phẩm?",
-    okText: "Vâng, tôi chắc",
+    title:`${t('content.infDelete')}`,
+    okText:`${t('content.yes')}`,
     okType: "danger",
-    cancelText:'Không',
+    cancelText:`${t('content.no')}`,
     onOk: () => {
       ProjectsService.remove(record.id)
       .then((response: any) => {
-        message.success('Xoá sản phẩm thành công');
+        message.success(`${t('content.messageSuccessDelete')}`);
         setRefreshTable(refreshTable+1)
       })
       .catch(()=> {
-        message.error('X sản phẩm thất bại')
+        message.error(`${t('content.messageErrorDelete')}`)
       });
     },
   });
