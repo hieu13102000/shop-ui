@@ -1,0 +1,29 @@
+{
+    "content": {
+        "language": "Ngôn ngữ",
+        "english":"Tiếng anh",
+        "vietnamese":"Tiếng việt",
+        "userName" : "Tên đăng nhập",
+        "passWord":"Mật khẩu",
+        "hi":"Xin chào,",
+        "logIn": "Đăng nhập",
+        "logout": "Đăng xuất",
+        "products": "Sản phẩm",
+        "dashboard":"Bảng điều khiển",
+        "addProduct": "Thêm sản phẩm",
+        "editProduct": "Sửa sản phẩm",
+        "nameProduct": "Tên sản phẩm",
+        "image": "Hình ảnh",
+        "productPhotoLink":"Link hình ảnh",
+        "price":"Giá",
+        "brand": "Thương hiệu",
+        "madeIn":"Xuất sứ",
+        "action":"Thao tác",
+        "save":"Lưu",
+        "cancel":"Huỷ",
+        "remove":"Xoá",
+        "infDelete":"Bạn có chắc muốn xoá?",
+        "yes":"Vâng, tôi chắc",
+        "no":"Không"
+    }
+}

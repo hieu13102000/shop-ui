@@ -1,0 +1,30 @@
+{
+    "content": {
+        "language": "Language",
+        "english":"English",
+        "vietnamese":"Vietnamese",
+        "userName" : "Username",
+        "passWord":"Password",
+        "hi":"Hi,",
+        "logIn": "Log in ",
+        "logout": "Log out",
+        "products": "Products",
+        "dashboard":"Dashboard",
+        "addProduct": "Add product",
+        "editProduct": "Edit product",
+        "nameProduct": "Name product",
+        "image": "Image",
+        "productPhotoLink":"Product photo link",
+        "price":"Price",
+        "brand": "Brand",
+        "madeIn":"Made in",
+        "action":"Action",
+        "save":"Save",
+        "cancel":"Cancel",
+        "remove":"Remove",
+        "infDelete":"Are you sure delete these items?",
+        "yes":"Yes, I'm sure",
+        "no":"No"
+
+    }
+}

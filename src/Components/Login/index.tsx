@@ -1,17 +1,24 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import style from './login.module.scss'
 import classNames from 'classnames/bind';
-import Image from '../../assets/images/';
+import i18n from '../../translation/i18n';
 import "antd/dist/antd.min.css"
 import { Form, Input, Button, } from 'antd';
 
+import Image from '../../assets/images/';
 import AuthService from '../../Services/AuthService';
 import { Navigate } from 'react-router-dom';
 import { isLogIn } from '../../Services/useLocalStorage';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style)
 
 export default function Login() {
+  const { t } = useTranslation()
+  function changeLanguage(value:string) {
+    i18n.changeLanguage(value);
+}
   const user  = isLogIn();
   if (user ===true) {
     return <Navigate to="/dashboard/listProducts" replace />;
@@ -49,7 +56,7 @@ export default function Login() {
                       // icon check Validation
                       hasFeedback
                     >
-                      <Input placeholder="Username" />
+                      <Input placeholder={t('content.userName')} />
                     </Form.Item>
                   </div>
                 </div>
@@ -69,7 +76,7 @@ export default function Login() {
                       <Input
                         type="password"
                         autoComplete='on'
-                        placeholder="Password"
+                        placeholder={t('content.passWord')}
                       />
                     </Form.Item>
                   </div>
@@ -80,17 +87,21 @@ export default function Login() {
             <div className={cx('ant-button')}>
               <Form.Item style={{ width: "100%",marginBottom: "0px"}}>
                 <Button  style={{ width: "100%"}} type="primary" htmlType="submit" className="login-form-button">
-                  Log in
+                {t('content.logIn')}
                 </Button>
               </Form.Item>
-              <p><span className={cx('margin-right')}>Username：dinhhieu</span>
-                <span>Password：123456</span>
+              <p><span className={cx('margin-right')}>{t('content.userName')}：dinhhieu</span>
+                <span>{t('content.passWord')}：123456</span>
               </p>
             </div>
           </Form>
         </div>
       </div>
-
+          <div className={cx('footer')}>
+            <span className={cx('footer-item')}>{t('content.language')}</span>
+            <span className={cx('footer-item')}> <a href="#" onClick={() => changeLanguage('en')}>English</a></span>
+            <span className={cx('footer-item')}><a href="#" onClick={() => changeLanguage('vi')}>Vietnamese</a></span>
+          </div>
     </div>
   )
 }

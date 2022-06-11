@@ -1,12 +1,15 @@
 import React, { useState, useEffect,useRef} from "react";
 import TypesProductData from "../../Types/Product"; 
 import ProjectsService from "../../Services/ProjectsService";
-import { Breadcrumb, Button, message, Modal, Table} from 'antd';
+import { Breadcrumb, Button, Col, Input, InputRef, message, Modal, Row, Space, Table} from 'antd';
 import { EditOutlined, DeleteOutlined,DashboardOutlined,ShoppingOutlined } from "@ant-design/icons";
-import type { ColumnsType } from 'antd/lib/table';
+import type { ColumnsType, ColumnType } from 'antd/lib/table';
 import AddProduct from './AddProduct';
 import EditProduct from "./EditProduct";
-
+import { useTranslation } from "react-i18next";
+import { FilterConfirmProps } from "antd/lib/table/interface";
+import { SearchOutlined } from '@ant-design/icons';
+import Highlighter from "react-highlight-words";
 interface DataType {
   key?: React.Key;
   id?: any;
@@ -17,6 +20,7 @@ interface DataType {
   brand?: any;
 }
 export default function Products() {
+  const { t } = useTranslation()
   const [dataProduct, setDataProduct] = useState<Array<TypesProductData>>([]);
   const data:DataType[] = dataProduct
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -24,10 +28,87 @@ export default function Products() {
   const [loadingTable, setLoadingTable] = useState(true);
   const initRefreshTable=0
   const [refreshTable,setRefreshTable] = useState(initRefreshTable)
+
+
+  type DataIndex = keyof DataType;
+  const [searchText, setSearchText] = useState('');
+  const [searchedColumn, setSearchedColumn] = useState('');
+  const searchInput = useRef<InputRef>(null);
+  const handleSearch = (
+    selectedKeys: string[],
+    confirm: (param?: FilterConfirmProps) => void,
+    dataIndex: DataIndex,
+  ) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters: () => void) => {
+    clearFilters();
+    setSearchText('');
+  };
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<DataType> => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
+          style={{ marginBottom: 8, display: 'block' }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered: boolean) => (
+      <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes((value as string).toLowerCase()),
+    onFilterDropdownVisibleChange: visible => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: text =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
+  });
+
   const columns: ColumnsType<DataType> = [
     {
       key: '1',
-      title: 'Tên sản phẩm',
+      title:`${t('content.nameProduct')}`,
       dataIndex: 'name',
       render: (text, record) => (
         <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
@@ -35,10 +116,11 @@ export default function Products() {
         </div>
       ),
       width: '400px',
+      ...getColumnSearchProps('name'),
     },
     {
       key: '2',
-      title: 'Hình ảnh',
+      title: `${t('content.image')}`,
       dataIndex: 'image',
       render: (k, record) => (
         <>
@@ -48,22 +130,26 @@ export default function Products() {
     },
     {
       key: '3',
-      title: 'Giá',
+      title: `${t('content.price')}`,
       dataIndex: 'price',
+      sorter: {
+        compare: (a, b) => a.price - b.price,
+        multiple: 1,
+      },
     },
     {
       key: '4',
-      title: 'Thương hiệu',
+      title: `${t('content.brand')}`,
       dataIndex: 'brand',
     },
     {
       key: '5',
-      title: 'Xuất sứ',
+      title:`${t('content.madeIn')}`,
       dataIndex: 'madeIn',
     },
     {
       key: '6',
-      title: 'Thao tác',
+      title: `${t('content.action')}`,
       dataIndex: '',
       render: (text, record, index) => {
         return (
@@ -151,23 +237,20 @@ const onDeleteProducts = (record: any) => {
 
 
 const childRef:any = useRef(null);
-
   const handleOpenModalEdit = (value:any,record: any) => {
       childRef.current.openModal(value,record);
   }
-
 const handleRefreshTable = ()=>{
   setRefreshTable(refreshTable+1)
 }
-
   return (
     <div>
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item><DashboardOutlined /> Bảng điều khiển</Breadcrumb.Item>
-        <Breadcrumb.Item><ShoppingOutlined /> Sản Phẩm</Breadcrumb.Item>
+        <Breadcrumb.Item><DashboardOutlined /> {t('content.dashboard')}</Breadcrumb.Item>
+        <Breadcrumb.Item><ShoppingOutlined /> {t('content.products')}</Breadcrumb.Item>
       </Breadcrumb>
   <div style={{backgroundColor: 'white'}}>
-    <AddProduct handleCallback={()=>handleRefreshTable()}/>
+       <AddProduct handleCallback={()=>handleRefreshTable()}/>
     <div
         style={{
           marginBottom: '16px',
@@ -188,6 +271,5 @@ const handleRefreshTable = ()=>{
       <EditProduct ref={childRef} handleCallback={()=>handleRefreshTable()}/>
     </div>
     </div>
-  
     )
 }

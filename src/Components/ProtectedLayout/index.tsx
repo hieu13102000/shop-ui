@@ -2,6 +2,9 @@ import React, { useState, } from 'react';
 import {Link, Navigate, useOutlet } from 'react-router-dom';
 import "antd/dist/antd.min.css"
 import classNames from 'classnames/bind';
+import { useTranslation } from 'react-i18next';
+
+
 import '../../App.css'
 import style from '../HeaderItem/headerItem.module.scss'
 import { Col, Layout, Menu, Row } from 'antd';
@@ -11,12 +14,15 @@ import {
   ShoppingOutlined,
   TeamOutlined
 } from '@ant-design/icons';
+
+
 import logo from '../../assets/images/logo.svg';
 import HeaderItem from '../HeaderItem';
 import { isLogIn } from '../../Services/useLocalStorage';
 
 const { Header, Sider, Content } = Layout;
 const ProtectedLayout: React.FC = () => {
+  const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false);
   const cx = classNames.bind(style)
   const outlet = useOutlet();
@@ -24,6 +30,7 @@ const ProtectedLayout: React.FC = () => {
   if (user ===false) {
     return <Navigate to="/" />;
   }
+
   return (
     <>
       <Layout hasSider>
@@ -57,7 +64,7 @@ const ProtectedLayout: React.FC = () => {
               {
                 key: '1',
                 icon: <ShoppingOutlined />,
-                label:<Link to="/dashboard/listProducts">Sản Phẩm</Link>,
+                label:<Link to="/dashboard/listProducts">{t('content.products')}</Link>,
               },
               {
                 key: '2',
@@ -110,7 +117,11 @@ const ProtectedLayout: React.FC = () => {
           </Content>
           <div
             style={{
+              backgroundColor: 'white',
+              fontSize: "13px",
               textAlign: 'center',
+              paddingTop:'24px',
+              paddingBottom:'24px'
             }}
           >
             Ant Design ©2022 Created by Dinh Hieu

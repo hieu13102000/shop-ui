@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Form, Input, Select, Row, Col, Button, message } from 'antd';
 import ProjectsService from "../../Services/ProjectsService";
+import { useTranslation } from 'react-i18next';
 
 interface Values {
   title: string;
@@ -14,6 +15,7 @@ interface CollectionCreateFormProps {
 
 
 export default function AddProduct(ketnoi:any) {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false);
   const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
     visible,
@@ -44,9 +46,9 @@ export default function AddProduct(ketnoi:any) {
     return (
       <Modal
         visible={visible}
-        title="Thêm sản phẩm"
-        okText='Lưu'
-        cancelText='Huỷ'
+        title={t('content.addProduct')}
+        okText={t('content.save')}
+        cancelText={t('content.cancel')}
         onCancel={onCancel}
         onOk={() => {
           form
@@ -74,7 +76,7 @@ export default function AddProduct(ketnoi:any) {
         >
           <Form.Item
             name="name"
-            label="Tên sản phẩm"
+            label={t('content.nameProduct')}
             rules={[
               {
                 required: true,
@@ -88,7 +90,7 @@ export default function AddProduct(ketnoi:any) {
           </Form.Item>
           <Form.Item
             name="image"
-            label="Link ảnh sản phẩm"
+            label={t('content.productPhotoLink')}
             rules={[
               {
                 required: true,
@@ -104,7 +106,7 @@ export default function AddProduct(ketnoi:any) {
           </Form.Item>
           <Form.Item
             name="price"
-            label="Giá sản phẩm"
+            label={t('content.price')}
             rules={[
               {
                 required: true,
@@ -120,7 +122,7 @@ export default function AddProduct(ketnoi:any) {
 
           <Form.Item
             name="brand"
-            label="Thương hiệu"
+            label={t('content.brand')}
             rules={[
               {
                 required: true,
@@ -130,15 +132,15 @@ export default function AddProduct(ketnoi:any) {
             // icon check Validation
             hasFeedback
           >
-            <Select placeholder="select your gender">
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-              <Option value="other">Other</Option>
+            <Select placeholder="select your brand">
+              <Option value="Dior">Dior</Option>
+              <Option value="Chanel">Chanel</Option>
+              <Option value="Gucci">Gucci</Option>
             </Select>
           </Form.Item>
           <Form.Item
             name="madeIn"
-            label="Xuất xứ"
+            label={t('content.madeIn')}
             rules={[
               {
                 required: true,
@@ -148,10 +150,10 @@ export default function AddProduct(ketnoi:any) {
             // icon check Validation
             hasFeedback
           >
-            <Select placeholder="select your gender">
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-              <Option value="other">Other</Option>
+            <Select placeholder="select your made in">
+              <Option value="Pháp">Pháp</Option>
+              <Option value="Anh">Anh</Option>
+              <Option value="Mỹ">Mỹ</Option>
             </Select>
           </Form.Item>
         </Form>
@@ -181,7 +183,7 @@ export default function AddProduct(ketnoi:any) {
         <Col style={{ display: 'flex', justifyContent: 'flex-end' }} span={24}>
           <Button style={{marginBottom:'-25px',marginRight:"36px",marginTop:"22px"}} type="primary" onClick={() => {
             setVisible(true);
-          }}>Thêm sản phẩm</Button>
+          }}>{t('content.addProduct')}</Button>
         </Col>
       </Row>
 
