@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
 import style from './login.module.scss'
 import classNames from 'classnames/bind';
 import i18n from '../../translation/i18n';
@@ -9,8 +8,9 @@ import { Form, Input, Button, } from 'antd';
 import Image from '../../assets/images/';
 import AuthService from '../../Services/AuthService';
 import { Navigate } from 'react-router-dom';
-import { isLogIn } from '../../Services/useLocalStorage';
+// import { isLogIn } from '../../Services/useLocalStorage';
 import { useTranslation } from 'react-i18next';
+import { handleAuthentication, removeAuthentication } from '../../Services/CookiesService';
 
 const cx = classNames.bind(style)
 
@@ -19,12 +19,18 @@ export default function Login() {
   function changeLanguage(value:string) {
     i18n.changeLanguage(value);
 }
-  const user  = isLogIn();
-  if (user ===true) {
-    return <Navigate to="/dashboard/listProducts" replace />;
-  }
-  const onFinish = (values: any) => {
-    AuthService.login(values.username,values.password)
+
+  const handleSubmit = async (values: any) => {
+    console.log("process.env.REACT_APP_BASE_URL",process.env.REACT_APP_BASE_URL);
+    AuthService.login(values.username,values.password);
+    
+    // try {
+    //   const data = await AuthService.login(values.username,values.password);
+    //   // handleAuthentication(data);
+    //   // history.push('/dashboard');
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   return (
     <div className={cx('body')}>
@@ -44,7 +50,7 @@ export default function Login() {
             name="normal_login"
             className="login-form"
             initialValues={{ remember: true }}
-            onFinish={onFinish}
+            onFinish={handleSubmit}
           >
             <div className={cx('ant-form-item')}>
               <div className={cx('ant-form-item-control')}>

@@ -18,7 +18,7 @@ import {
 
 import logo from '../../assets/images/logo.svg';
 import HeaderItem from '../HeaderItem';
-import { isLogIn } from '../../Services/useLocalStorage';
+// import { isLogIn } from '../../Services/useLocalStorage';
 
 const { Header, Sider, Content } = Layout;
 const ProtectedLayout: React.FC = () => {
@@ -26,9 +26,9 @@ const ProtectedLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const cx = classNames.bind(style)
   const outlet = useOutlet();
-  const user  = isLogIn();
+  const user  = false;
   if (user ===false) {
-    return <Navigate to="/" />;
+    // return <Navigate to="/" />;
   }
 
   return (

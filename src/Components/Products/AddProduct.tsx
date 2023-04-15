@@ -164,17 +164,17 @@ export default function AddProduct(ketnoi:any) {
 
   const onCreate = (values: any) => {
     console.log('giá trị form', values);
-    ProjectsService.create(values)
-      .then((response: any) => {
-        message.success(`${t('content.messageSuccessAdd')}`);
-        const handleRefreshTable = ()=> {ketnoi.handleCallback()}
-        setTimeout(handleRefreshTable
-        , 2000)
+    // ProjectsService.create(values)
+    //   .then((response: any) => {
+    //     message.success(`${t('content.messageSuccessAdd')}`);
+    //     const handleRefreshTable = ()=> {ketnoi.handleCallback()}
+    //     setTimeout(handleRefreshTable
+    //     , 2000)
         
-      })
-      .catch(()=> {
-        message.error(`${t('content.messageErrorAdd')}`)
-      });
+    //   })
+    //   .catch(()=> {
+    //     message.error(`${t('content.messageErrorAdd')}`)
+    //   });
   };
 
   return (

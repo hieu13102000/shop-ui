@@ -176,14 +176,14 @@ export default forwardRef( function EditProduct(props:any, ref:any) {
 
 
   const onCreate = (id: any,values: any) => {
-    ProjectsService.update(id,values)
-      .then((response: any) => {
-        message.success(`${t('content.messageSuccessEdit')}`);
-      })
-      .catch(()=> {
-        message.error(`${t('content.messageErrorEdit')}`)
-      });
-      setOpenModal(true);
+    // ProjectsService.update(id,values)
+    //   .then((response: any) => {
+    //     message.success(`${t('content.messageSuccessEdit')}`);
+    //   })
+    //   .catch(()=> {
+    //     message.error(`${t('content.messageErrorEdit')}`)
+    //   });
+    //   setOpenModal(true);
   };
 
   return (
