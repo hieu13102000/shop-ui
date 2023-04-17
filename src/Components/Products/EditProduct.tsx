@@ -1,6 +1,6 @@
 import React, {forwardRef, useImperativeHandle, useState } from 'react'
 import { Modal, Form, Input, Select, message } from 'antd';
-import ProjectsService from "../../Services/ProjectsService";
+import ProjectsService from "../../Services/ProductsService";
 import { useTranslation } from 'react-i18next';
 
 interface Values {

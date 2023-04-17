@@ -1,0 +1,25 @@
+.card {
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 0 5px 5px rgb(0 0 0 / 3%);
+    -moz-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 10px 10px rgb(0 0 0 / 2%);
+    position: relative;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    :global(.ant-card-head-title) {
+      font-size: 15px;
+      padding: 10px 0 10px 0;
+    }
+  }
+  
+  .no-shadow {
+    background-color: #ffffff;
+    position: relative;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border-color: #d0d0d0;
+  }
+  

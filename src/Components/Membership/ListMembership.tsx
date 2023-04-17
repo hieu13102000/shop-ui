@@ -11,7 +11,7 @@ export default function ListMembership() {
     title= {t('content.messWarning')}
     extra={
       <Button type="primary" key="console">
-        <Link to="/dashboard/listProducts">{t('content.goback')}</Link>
+        <Link to="/listProducts">{t('content.goback')}</Link>
       </Button>
     }
   />

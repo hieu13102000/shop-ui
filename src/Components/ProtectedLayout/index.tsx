@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, {useState, } from 'react';
 import {Link, Navigate, useOutlet } from 'react-router-dom';
 import "antd/dist/antd.min.css"
 import classNames from 'classnames/bind';
@@ -18,7 +18,7 @@ import {
 
 import logo from '../../assets/images/logo.svg';
 import HeaderItem from '../HeaderItem';
-// import { isLogIn } from '../../Services/useLocalStorage';
+import GuardService from '../../Services/GuardService';
 
 const { Header, Sider, Content } = Layout;
 const ProtectedLayout: React.FC = () => {
@@ -26,11 +26,15 @@ const ProtectedLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const cx = classNames.bind(style)
   const outlet = useOutlet();
-  const user  = false;
-  if (user ===false) {
-    // return <Navigate to="/" />;
-  }
 
+  // Kiểm tra xem người dùng đã đăng nhập hay chưa
+  const isAuthenticated = GuardService();
+
+  // Nếu người dùng chưa đăng nhập, redirect đến trang đăng nhập
+  if (isAuthenticated ===false) {
+    return <Navigate to="/login" />;
+  }
+  
   return (
     <>
       <Layout hasSider>
@@ -64,12 +68,12 @@ const ProtectedLayout: React.FC = () => {
               {
                 key: '1',
                 icon: <ShoppingOutlined />,
-                label:<Link to="/dashboard/listProducts">{t('content.products')}</Link>,
+                label:<Link to="/listProducts">{t('content.products')}</Link>,
               },
               {
                 key: '2',
                 icon: <TeamOutlined />,
-                label:  <Link to="/dashboard/listMembership">{t('content.Staff')}</Link>,
+                label:  <Link to="/listMembership">{t('content.Staff')}</Link>,
               
               },
             ]}

@@ -10,14 +10,15 @@ import images from '../../assets/images';
 import avatar from '../../assets/images/avtar.png';
 import { useTranslation } from 'react-i18next';
 import AuthService from '../../Services/AuthService';
+
 const cx = classNames.bind(style)
-const logout = (() => {
-  AuthService.Logout()
-})
 
 export default function HeaderItem() {
   const { i18n } = useTranslation();
   const { t } = useTranslation();
+  const hanldeLogout = (() => {
+    AuthService.Logout()
+  })
   const menu = (
     <Menu
       key="language"
@@ -49,7 +50,7 @@ export default function HeaderItem() {
           key: '1',
           label: (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <a href="#" onClick={logout}>
+            <a href="#" onClick={hanldeLogout}>
              {t('content.logout')}
             </a>
           ),
