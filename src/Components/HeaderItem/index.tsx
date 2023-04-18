@@ -1,15 +1,12 @@
 
 import classNames from 'classnames/bind';
 import style from './headerItem.module.scss'
-import { Avatar, Dropdown, Menu } from 'antd';
-import {
-  BellOutlined
-} from '@ant-design/icons';
-// import { removeLocalStorage } from '../../Services/useLocalStorage';
+import { Avatar, Col, Dropdown, Menu, Row, Space } from 'antd';
 import images from '../../assets/images';
 import avatar from '../../assets/images/avtar.png';
 import { useTranslation } from 'react-i18next';
 import AuthService from '../../Services/AuthService';
+import { getInfo } from '../../Services/CookiesService';
 
 const cx = classNames.bind(style)
 
@@ -17,7 +14,10 @@ export default function HeaderItem() {
   const { i18n } = useTranslation();
   const { t } = useTranslation();
   const hanldeLogout = (() => {
-    AuthService.Logout()
+    AuthService.logout()
+  })
+  const getUser = (() => {
+    return getInfo()
   })
   const menu = (
     <Menu
@@ -63,24 +63,26 @@ export default function HeaderItem() {
 }
   return (
     <>
-      {/* <Dropdown className={cx('dropdown-trigger')} overlay={menu} placement="bottom">
-        <span> <BellOutlined style={{ fontSize: 24, paddingTop: '2%' }} /></span>
-      </Dropdown> */}
-
-
-
+        <Row>
+      <Col span={24}>
       <Dropdown className={cx('dropdown-trigger')} overlay={menu} placement="bottom">
         {i18n.language === 'vi' ? <img src={images.flag_vi} alt="flag" className={cx('img-circle')} /> : <img src={images.flag_en} alt="Logo" className={cx('img-circle')} />}
       </Dropdown>
       <Dropdown className={cx('dropdown-trigger')} overlay={profile} placement="bottom">
         <div>
           <span>{t('content.hi')}</span>
-          <span style={{ marginRight: '5px' }}>dinhhieu</span>
+          <span style={{ marginRight: '5px' }}>{getUser()}</span>
           <span> <img src={avatar} alt="Logo" className={cx('img-circle')} /></span>
-
         </div>
-
       </Dropdown>
+      </Col>
+    </Row>
+      {/* <Dropdown className={cx('dropdown-trigger')} overlay={menu} placement="bottom">
+        <span> <BellOutlined style={{ fontSize: 24, paddingTop: '2%' }} /></span>
+      </Dropdown> */}
+
+
+
     </>
   )
 }

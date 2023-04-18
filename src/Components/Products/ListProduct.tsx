@@ -4,8 +4,7 @@ import ProjectsService from "../../Services/ProductsService";
 import { Breadcrumb, Button, Col, Input, InputRef, message, Modal, Pagination, PaginationProps, Row, Space, Table } from 'antd';
 import { EditOutlined, DeleteOutlined, DashboardOutlined, ShoppingOutlined } from "@ant-design/icons";
 import type { ColumnsType, ColumnType } from 'antd/lib/table';
-import AddProduct from './AddProduct';
-import EditProduct from "./EditProduct";
+import FormProduct from "./FormProduct";
 import { useTranslation } from "react-i18next";
 import { TypesProductData } from "../../Types/Product";
 import Toast, { toastError, toastSuccess } from "../../core/Toast";
@@ -25,7 +24,7 @@ export default function Products() {
   const onChangePage: PaginationProps['onChange'] = (page) => {
     setCurrentPage(page);
   };
-
+  
   const columns: ColumnsType<TypesProductData> = [
     {
       key: '1',
@@ -70,7 +69,7 @@ export default function Products() {
           <>
             <EditOutlined
               onClick={() => {
-                handleOpenModalEdit(true, record)
+                handleOpenModalProduct(true, record.productId)
               }}
             />
             <DeleteOutlined
@@ -115,7 +114,7 @@ export default function Products() {
   const hasSelected = selectedRowKeys.length > 0;
   useEffect(() => {
     getAllProducts();
-  }, [refreshTable]);
+  }, [refreshTable,currentPage]);
 
   const getAllProducts = () => {
     const param = {
@@ -155,10 +154,17 @@ export default function Products() {
 
 
   const childRef: any = useRef(null);
-  const handleOpenModalEdit = (value: any, record: any) => {
-    childRef.current.openModal(value, record);
+  const handleOpenModalProduct = (isOpen: boolean, payloadId?: number) => {
+    if (payloadId !== undefined) {
+      childRef.current.openModal(isOpen, payloadId);
+    } else {
+      childRef.current.openModal(isOpen);
+    }
   }
+  
   const handleRefreshTable = () => {
+    console.log("ggg");
+    
     setRefreshTable(refreshTable + 1)
   }
   return (
@@ -180,7 +186,9 @@ export default function Products() {
           </Col>
           <Col span={12}  className={styles["align-right"]}>
             {/* <AddProduct handleCallback={() => handleRefreshTable()} /> */}
-            <Button style={{ textAlign: 'right' }} type="primary">Primary Button</Button>
+            <Button style={{ textAlign: 'right' }} type="primary" onClick={()=>handleOpenModalProduct(true)}>
+              {t('content.addProduct')}
+              </Button>
           </Col>
           <Col span={24}>
             <Table
@@ -199,7 +207,7 @@ export default function Products() {
               hideOnSinglePage={dataProduct.length !== 0 ? false : true} />
           </Col>
         </Row>
-        <EditProduct ref={childRef} handleCallback={() => handleRefreshTable()} />
+        <FormProduct ref={childRef} handleCallback={() => handleRefreshTable()} />
       </Card>
     </>
   )

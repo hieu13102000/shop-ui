@@ -30,3 +30,10 @@ export const getRefreshToken = () => {
     return JSON.parse(infoUser).refreshToken;
   }
 }
+
+export const getInfo = () => {
+  const infoUser = Cookies.get('info_user');
+  if (infoUser) {
+    return JSON.parse(infoUser).username;
+  }
+}

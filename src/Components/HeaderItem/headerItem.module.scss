@@ -1,8 +1,12 @@
 .header-item-right{
-   margin-left: calc(100% - 530px);
+   // margin-left: calc(100% - 530px);
+   width: calc(100vw - 328px);
+   text-align: right;
+   // margin-right: 17%;
 }
 .header-item-rightClose{
-   margin-left: calc(100% - 417px);
+   width: calc(100vw - 206px);
+   text-align: right;
  }
  .dropdown-trigger {
    display: inline-flex;

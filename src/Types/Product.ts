@@ -23,3 +23,7 @@ export interface GetProductsParams {
   name?: string;
   brand?: string;
 }
+export interface ArrayList {
+  label: string;
+  value: string;
+}

@@ -24,12 +24,12 @@ const login = async (username: string, password: string) => {
   }
 };
 
-const Logout = () => {
+const logout = () => {
   removeAuthentication()
 }
 
 const AuthService = {
   login,
-  Logout
+  logout
 };
 export default AuthService;

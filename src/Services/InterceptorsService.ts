@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
 import { getAccessToken, getRefreshToken, setAccessToken } from "./CookiesService";
+import AuthService from "./AuthService";
 
 // Tạo instance axios mới
 const instance = axios.create({
@@ -41,12 +42,17 @@ const instance = axios.create({
         //   đã được gán giá trị true thì interceptor sẽ không thực hiện lại yêu cầu nữa, mà sẽ trả 
         //   về lỗi ban đầu.
       ) {
-        originalRequest._retry = true;
-        const response = await instance.post("/refresh-token", {
-          refresh_token: refreshToken,
-        });
-        setAccessToken(response.data.accessToken);
-        return axios(originalRequest);
+        try {
+          const response = await instance.post("/api/auth/refreshtoken", {
+            refreshToken: refreshToken,
+          });
+          setAccessToken(response.data.accessToken);
+          originalRequest.headers['Authorization'] = `Bearer ${getAccessToken()}`;
+          return axios(originalRequest);
+        } catch (refreshTokenError) {
+          console.error(refreshTokenError);
+          AuthService.logout(); // Call the logout function here
+        }
       }
   
       return Promise.reject(error);

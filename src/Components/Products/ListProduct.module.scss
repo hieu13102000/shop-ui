@@ -5,3 +5,38 @@
 .pagination {
     text-Align: center;
 }
+
+.avatar {
+    width: 100%;
+    height: 383px;
+    object-Fit: revert !important;
+    -webkit-user-drag: none;
+    /* Safari */
+    -khtml-user-drag: none;
+    /* Konqueror */
+    -moz-user-drag: none;
+    /* Firefox */
+    -o-user-drag: none;
+    /* Opera */
+    user-drag: none;
+}
+
+.btn-avatar {
+    background-color: green;
+    color: white;
+    margin-left: 25px;
+    position: absolute;
+    top: 91%;
+    left: 31.8%;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mb-12{
+    margin-bottom: 12px;
+}
