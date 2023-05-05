@@ -1,6 +1,6 @@
-import { GetProductsParams, TypesProductData } from '../Types/Product';
-import Interceptors from './InterceptorsService';
 import querystring from 'querystringify';
+import { GetProductsParams } from '../Types/Product';
+import Interceptors from './InterceptorsService';
 
 const instance = Interceptors.instance
 

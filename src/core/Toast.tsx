@@ -1,4 +1,4 @@
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 export const toastSuccess = (text: string) => {
     toast.success(text, {
@@ -45,6 +45,7 @@ export interface ToastProps {
 }
 
 export default function Toast(props: ToastProps): JSX.Element {
+  // eslint-disable-next-line no-empty-pattern
   const { } = props;
   return <ToastContainer />;
 }

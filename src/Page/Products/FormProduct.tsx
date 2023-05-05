@@ -1,12 +1,11 @@
-import { forwardRef, useImperativeHandle, useState } from 'react'
-import { Modal, Form, Input, Select, message, Row, Col, Spin, Upload, Button } from 'antd';
-import ProjectsService from "../../Services/ProductsService";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Button, Col, Form, Input, Modal, Row, Select, Spin, Upload, message } from 'antd';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { default as ProductsService, default as ProjectsService } from "../../Services/ProductsService";
+import { ArrayList } from '../../Types/Product';
 import Toast from '../../core/Toast';
 import styles from "./ListProduct.module.scss";
-import { LoadingOutlined } from "@ant-design/icons";
-import ProductsService from '../../Services/ProductsService';
-import { ArrayList } from '../../Types/Product';
 
 export default forwardRef(function FormProduct(props: any, ref: any) {
   const { t } = useTranslation()
@@ -112,10 +111,6 @@ export default forwardRef(function FormProduct(props: any, ref: any) {
     { value: '1', label: 'Dior' },
     { value: '2', label: 'Gucci' },
     { value: '3', label: 'Chanel' },
-  ]
-
-  const arrCategory = [
-    { value: '1', label: 'Son' }
   ]
 
   const arrSaleOff = [

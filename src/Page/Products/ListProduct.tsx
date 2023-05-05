@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect, useRef } from "react";
-import ProjectsService from "../../Services/ProductsService";
-import { Breadcrumb, Button, Col, Input, InputRef, message, Modal, Pagination, PaginationProps, Row, Space, Table } from 'antd';
-import { EditOutlined, DeleteOutlined, DashboardOutlined, ShoppingOutlined } from "@ant-design/icons";
-import type { ColumnsType, ColumnType } from 'antd/lib/table';
-import FormProduct from "./FormProduct";
+import { DeleteOutlined, EditOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { Breadcrumb, Button, Col, Modal, Pagination, PaginationProps, Row, Space, Table } from 'antd';
+import type { ColumnsType } from 'antd/lib/table';
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import ProjectsService from "../../Services/ProductsService";
 import { TypesProductData } from "../../Types/Product";
-import Toast, { toastError, toastSuccess } from "../../core/Toast";
-import styles from "./ListProduct.module.scss";
 import Card from "../../core/Card";
+import Toast, { toastError, toastSuccess } from "../../core/Toast";
+import FormProduct from "./FormProduct";
+import styles from "./ListProduct.module.scss";
 
 export default function Products() {
   const { t } = useTranslation()
@@ -114,6 +114,7 @@ export default function Products() {
   const hasSelected = selectedRowKeys.length > 0;
   useEffect(() => {
     getAllProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshTable,currentPage]);
 
   const getAllProducts = () => {
@@ -197,6 +198,7 @@ export default function Products() {
               columns={columns}
               dataSource={dataProduct.map((item: TypesProductData) => ({ ...item, key: item.productId }))}
               pagination={false}
+              scroll={{ x: 400, y: undefined }}
             />
           </Col>
           <Col span={24}>

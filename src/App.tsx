@@ -1,9 +1,9 @@
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Login from './Components/Login'
-import ListMembership from './Components/Membership/ListMembership'
-import Products from './Components/Products/ListProduct'
-import ProtectedLayout from './Components/ProtectedLayout'
+import Login from './Page/Login'
+import ListMembership from './Page/Membership/ListMembership'
+import Products from './Page/Products/ListProduct'
+import ProtectedLayout from './Page/ProtectedLayout'
+
 export default function App() {
   
   return (

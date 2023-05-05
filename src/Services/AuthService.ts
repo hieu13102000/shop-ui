@@ -1,5 +1,3 @@
-import { message } from "antd";
-import TypesAuthData from "../Types/Auth";
 
 import { handleAuthentication, removeAuthentication, } from "./CookiesService";
 import Interceptors from "./InterceptorsService";
