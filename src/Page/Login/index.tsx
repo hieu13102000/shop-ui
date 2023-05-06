@@ -23,7 +23,7 @@ export default function Login() {
     const isAuthenticated = GuardService();
     if (isAuthenticated === true) {
       // Nếu người dùng chưa đăng nhập, redirect đến trang đăng nhập
-      navigate('/listProducts');
+      navigate('/dashboard');
     }
   }
   isLogin()
@@ -39,7 +39,7 @@ export default function Login() {
       <div className={style['wrapper']}>
         <div className={style['logo']}>
           <img src={Image.logo} alt="Logo" />
-          <span>AntD Admin</span
+          <span>SHOP UI</span
           ></div>
         <div className={style['ant-form']}>
           <Form

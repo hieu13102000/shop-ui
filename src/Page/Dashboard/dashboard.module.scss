@@ -1,0 +1,129 @@
+.big-card {
+    height: 212px;
+
+    .big-card-title {
+        margin-bottom: 4px;
+        margin-top: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        color: #4E97FD;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .big-card-description {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 14px;
+        color: #7D879C;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .big-card-total {
+        margin-bottom: 0px;
+        margin-top: 24px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.5;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .big-card-total-description {
+        margin-bottom: -10px;
+        margin-top: 0px;
+        font-size: 14px;
+        color: #7D879C;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .img-dashboard {
+        bottom: -11px;
+
+        img {
+            float: right;
+        }
+    }
+}
+
+.small-card {
+    height: 120px;
+
+    .small-card-title {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+        color: #7D879C !important;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .small-card-total {
+        margin-bottom: 0px;
+        margin-top: 2.4px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.5;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .small-card-total1 {
+        bottom: -6px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #AEB4BE;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .small-card-total2 {
+        bottom: -9px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 12px;
+        text-transform: none;
+        white-space: normal;
+        text-align: right;
+    }
+}
+
+.medium-card {
+    height: 156px;
+
+    .medium-card-title {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+        color: #7D879C;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    .medium-card-total1 {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.5;
+        text-transform: none;
+        white-space: normal;
+    }
+    .medium-card-total2 {
+        margin-top: 2.4px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 12px;
+        text-transform: none;
+        white-space: normal;
+}
+}
